@@ -10,6 +10,7 @@ from pydantic import BaseModel
 from contextlib import asynccontextmanager
 import sys
 
+
 # Tell SeleniumBase to handle thread-locking
 sys.argv.append("-n")
 
@@ -46,12 +47,6 @@ class OnDemandTokenServer:
             self.driver.get(self.url)
             self.driver.set_script_timeout(10)
             self.driver.sleep(2)
-            
-            # Wait for hCaptcha
-            while not self.driver.is_element_present('[data-hcaptcha-widget-id]', by="css selector"):
-                print("⏳ Waiting for hCaptcha...")
-                self.driver.get(self.url)
-                self.driver.sleep(2)
             
             self.browser_ready = True
             self.last_keepalive = time.time()
